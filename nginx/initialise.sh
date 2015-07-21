@@ -8,6 +8,7 @@ apt-get install nginx -y
 
 mkdir -p /data/www/logs
 mkdir -p /data/www/cache
+useradd nginx
 chown -R nginx:nginx /data/www
 echo 10.0.0.53	lancache-steam >> /etc/hosts
 echo 10.0.0.54  lancache-riot >> /etc/hosts
@@ -17,7 +18,7 @@ echo 10.0.0.57  lancache-origin >> /etc/hosts
 echo 10.0.0.58  lancache-sony >> /etc/hosts
 echo 10.0.0.59  lancache-origin >> /etc/hosts
 cd /etc/nginx && ln -s -f /home/weby/servers/nginx/* .
-useradd nginx
+
 
 service nginx restart
 ln /data/www/logs/* /var/log/nginx/

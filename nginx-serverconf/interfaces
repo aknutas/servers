@@ -1,0 +1,61 @@
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto p2p1
+auto p4p1
+
+# iface p2p1 inet dhcp
+
+iface p2p1 inet static
+   address 192.168.10.50
+   netmask 255.255.254.0
+   gateway 192.168.10.1
+   dns-nameservers 192.168.10.1
+
+# steam nginx proxy
+auto p2p1:0
+iface p2p1:0 inet static
+    address 192.168.10.51
+    netmask 255.255.254.0
+ 
+# riot nginx proxy
+auto p2p1:1
+iface p2p1:1 inet static
+    address 192.168.10.52
+    netmask 255.255.254.0
+       
+# blizzard nginx proxy
+auto p2p1:2
+iface p2p1:2 inet static
+    address 192.168.10.53
+    netmask 255.255.254.0
+       
+# hirez nginx proxy
+auto p2p1:3
+iface p2p1:3 inet static
+    address 192.168.10.54
+    netmask 255.255.254.0
+       
+# origin nginx proxy
+auto p2p1:4
+iface p2p1:4 inet static
+    address 192.168.10.55
+    netmask 255.255.254.0
+       
+# sony nginx proxy
+auto p2p1:5
+iface p2p1:5 inet static
+    address 192.168.10.56
+    netmask 255.255.254.0
+
+#iface br0 inet static
+#   address 192.168.10.50
+#   netmask 255.255.254.0
+#   gateway 192.168.10.1
+#   bridge_ports p4p1 p2p1
+#   up /usr/sbin/brctl stp br0 on

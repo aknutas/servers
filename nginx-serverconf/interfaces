@@ -1,61 +1,62 @@
-# This file describes the network interfaces available on your system
-# and how to activate them. For more information, see interfaces(5).
+#enp2s0 is manually configured, and slave to the "bond0" bonded NIC
+auto enp2s0
+iface enp2s0 inet manual
+	bond-master bond0
 
-# The loopback network interface
-auto lo
-iface lo inet loopback
+#enp3s0 ditto, thus creating a 2-link bond.
+auto enp3s0
+iface enp3s0 inet manual
+	bond-master bond0
 
-# The primary network interface
-auto p2p1
-auto p4p1
+# bond0 is the bonded NIC and can be used like any other normal NIC.
+# bond0 is configured using static network information.
 
-# iface p2p1 inet dhcp
+auto bond0
+iface bond0 inet static
+	address 192.168.10.50
+	netmask 255.255.254.0
+	gateway 192.168.10.1
+	dns-nameservers
 
-iface p2p1 inet static
-   address 192.168.10.50
-   netmask 255.255.254.0
-   gateway 192.168.10.1
-   dns-nameservers 192.168.10.1
+# bond0 uses standard IEEE 802.3ad LACP bonding protocol
+bond-mode 4
+bond-miimon 100
+bond-lacp-rate 1
+bond-slaves enp2s0 enp3s0
+
 
 # steam nginx proxy
-auto p2p1:0
-iface p2p1:0 inet static
+auto bond0:0
+iface bond0:0 inet static
     address 192.168.10.51
     netmask 255.255.254.0
  
 # riot nginx proxy
-auto p2p1:1
-iface p2p1:1 inet static
+auto bond0:1
+iface bond0:1 inet static
     address 192.168.10.52
     netmask 255.255.254.0
        
 # blizzard nginx proxy
-auto p2p1:2
-iface p2p1:2 inet static
+auto bond0:2
+iface bond0:2 inet static
     address 192.168.10.53
     netmask 255.255.254.0
        
 # hirez nginx proxy
-auto p2p1:3
-iface p2p1:3 inet static
+auto bond0:3
+iface bond0:3 inet static
     address 192.168.10.54
     netmask 255.255.254.0
        
 # origin nginx proxy
-auto p2p1:4
-iface p2p1:4 inet static
+auto bond0:4
+iface bond0:4 inet static
     address 192.168.10.55
     netmask 255.255.254.0
        
 # sony nginx proxy
-auto p2p1:5
-iface p2p1:5 inet static
+auto bond0:5
+iface bond0:5 inet static
     address 192.168.10.56
     netmask 255.255.254.0
-
-#iface br0 inet static
-#   address 192.168.10.50
-#   netmask 255.255.254.0
-#   gateway 192.168.10.1
-#   bridge_ports p4p1 p2p1
-#   up /usr/sbin/brctl stp br0 on
